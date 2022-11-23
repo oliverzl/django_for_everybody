@@ -1,0 +1,54 @@
+Database things in PythonAnywhere, as sqlite3 cannot be run in Windows Terminals:
+
+
+location:
+dj4e-samples/users/models.py
+from django.db import models
+
+class People(models.Model):
+    name = models.CharField(max_length=128)
+    email = models.CharField(max_length=128)
+
+
+then, in location dj4e-samples, we can run a bash shell:
+$ python manage.py check
+$ python manage.py makemigrations
+$ python manage.py migrate
+
+we can then run a django shell:
+$ python manage.py shell
+$ from users.models import People
+
+# IMPORT PEOPLE AS THE dj4e-samples/users/models.py's class is People.
+u = People(name='Kristen', email='kf@umich.edu')
+u.save()
+u = People(name='Chuck', email='csev@umich.edu')
+u = People(name='Colleen', email='cvl@umich.edu')
+u.save()
+u = People(name='Ted', email='ted@umich.edu')
+u.save()
+u = People(name='Sally', email='a2@umich.edu')
+u.save()
+People.objects.values()
+
+this shows:
+<QuerySet [{'id': 5, 'name': 'Kristen', 'email': 'kf@umich.edu'}, {'id': 6, 'name': 'Chuck', 'email': 'csev@umich.edu'}, {'id': 7, 'name': 'Colleen', 'email': 'cvl@umich.edu'}, {'id': 8, 'name': 'Ted', 'email': 'ted@umich.edu'}, {'id': 9, 'name': 'Sally', 'email': 'a2@umich.edu'}]>
+$ quit()
+
+
+now, we can go into the databse that we keyed in everything:
+in dj4e-samples:
+$ sqlite3 db.sqlite3
+.tables
+SELECT * FROM users_people
+
+this will show us whatever we keyed in through the shell
+
+to reset everything, 
+in the bash script:
+
+$ rm sqlite3 db.sqlite3
+
+doing python manage.py check, 
+makemigrations and migrate will reset the file dbdqlite3.
+`
