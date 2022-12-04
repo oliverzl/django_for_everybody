@@ -5,12 +5,15 @@ from . import views
 # Django Tutorial 3
 app_name = "polls"
 urlpatterns = [
-    # ex: /polls/
+    # example: /polls/
     path("", views.index, name="index"),
-    # ex: /polls/5/
+    # example: /polls/5/
     path("<int:question_id>/", views.detail, name="detail"),
-    # ex: /polls/5/results/
+    # example: /polls/5/results/
     path("<int:question_id>/results/", views.results, name="results"),
-    # ex: /polls/5/vote/
+    # example: /polls/vote/2
+    path("vote/<int:question_id>", views.vote, name="vote"),
+    # danger has GET request
+    path("danger", views.danger, name="danger"),
     path("<int:question_id>/vote/", views.vote, name="vote"),
 ]
